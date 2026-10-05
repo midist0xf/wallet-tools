@@ -28,6 +28,13 @@ Aggregates the results into a compatibility score:
 
 Display everything in a clean dashboard with a dark theme and monospace font.
 
+### Auto-copy Report
+When all checks finish, automatically copy a compact JSON summary of the
+results to the clipboard using `navigator.clipboard.writeText()`. Show a
+small toast at the bottom saying "Report copied to clipboard — paste it into
+your support ticket." This saves the user a manual step when sharing
+diagnostics with their team.
+
 ## Tech stack
 React + TypeScript. No external dependencies needed — all APIs are built into
 the browser.
