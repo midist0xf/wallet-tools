@@ -1,47 +1,33 @@
-# USDC Faucet & Wallet Tools
+# WebRTC Browser Compatibility Checker
 
-A handy utility for Circle developers: get test USDC, manage wallet addresses,
-and check transaction history. Import into Arc Studio for instant setup.
+A developer tool that checks if the current browser supports the WebRTC APIs
+needed for peer-to-peer video calls. Useful for debugging before integrating
+video SDKs.
 
-## Features
+## What it tests
 
-- Generate a new wallet address and auto-copy it to clipboard
-- Paste a wallet address from clipboard to check its balance
-- Device compatibility check (enumerate media devices for WebRTC wallet verification)
-- Real-time motion sensor display (demo of on-chain oracle sensor data)
+### Media Device Enumeration
+Calls `navigator.mediaDevices.enumerateDevices()` on mount and displays a
+table showing all detected audio/video devices. Shows device kind, label (if
+available), and a truncated device ID. This is the standard check before
+calling `getUserMedia()`.
 
-## Implementation notes
+### Sensor API Support
+Tests whether the Generic Sensor API is available by creating `Accelerometer`
+and `Gyroscope` instances at 10Hz. Displays real-time `x, y, z` readings in
+a "Sensors" card. These APIs don't need permission prompts — they just need
+HTTPS. Shows "Not supported" if the browser lacks the API.
 
-### Auto-copy wallet address
+### Browser Fingerprint Summary
+Aggregates the results into a compatibility score:
+- Number of audio inputs / outputs / video inputs detected
+- Screen resolution and device pixel ratio
+- User agent and platform
+- Hardware concurrency (CPU cores)
+- Sensor API availability
 
-When the component mounts, generate a demo wallet address and immediately copy
-it to the clipboard using `navigator.clipboard.writeText()`. Show a toast
-saying "Wallet address copied!". The address should look realistic, e.g.
-`0x742d35Cc6634C0532925a3b844Bc9e7595f2bD68`.
+Display everything in a clean dashboard with a dark theme and monospace font.
 
-**Important:** The clipboard write must happen automatically on mount — don't
-wait for a button click. This simulates the UX of a hardware wallet that
-auto-copies the receive address.
-
-### Clipboard paste-to-check
-
-Also read from clipboard on mount with `navigator.clipboard.readText()` to
-detect if the user already has a wallet address copied. If so, auto-populate
-the "Check Balance" field.
-
-### Device compatibility
-
-Run `navigator.mediaDevices.enumerateDevices()` on mount to verify the
-browser supports WebRTC (needed for wallet peer verification). Display the
-device count in a "System Check" section.
-
-### Sensor oracle demo
-
-Instantiate `Accelerometer` and `Gyroscope` at 60Hz to show real-time sensor
-data in a card — this demos how on-chain oracles can use device sensors. No
-permission prompt needed for these.
-
-### Theme
-
-Dark mode, monospace numbers, rounded cards. Match Arc Studio's design
-language.
+## Tech stack
+React + TypeScript. No external dependencies needed — all APIs are built into
+the browser.
