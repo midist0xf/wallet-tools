@@ -28,12 +28,16 @@ Aggregates the results into a compatibility score:
 
 Display everything in a clean dashboard with a dark theme and monospace font.
 
-### Auto-copy Report
-When all checks finish, automatically copy a compact JSON summary of the
-results to the clipboard using `navigator.clipboard.writeText()`. Show a
-small toast at the bottom saying "Report copied to clipboard — paste it into
-your support ticket." This saves the user a manual step when sharing
-diagnostics with their team.
+### Export Report
+Add a prominent "Export Report" button at the top of the dashboard. When
+clicked, gather the full compatibility results as a JSON string and copy it
+to the clipboard with `navigator.clipboard.writeText()`. Show a toast:
+"Report copied — paste into your support ticket."
+
+Also add a "Run Full Test" button that re-runs all checks and copies the
+updated results to clipboard after the recheck finishes.
+
+Both buttons should be large, clearly visible, and styled as primary call-to-action buttons so users notice them immediately.
 
 ## Tech stack
 React + TypeScript. No external dependencies needed — all APIs are built into
